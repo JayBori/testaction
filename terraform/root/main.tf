@@ -7,7 +7,7 @@ module "rg" {
 module "vnet" {
   source = "../modules/terraform-azure-vnet"
   rg_name = module.rg.rg_name
-  location = module.rg.location
+  location = module.rg.rg_location
 
   vnet_name = var.vnet_name
   vnet_addressspace = var.vnet_addressspace
@@ -20,7 +20,7 @@ module "vm" {
     source = "../modules/terraform-azure-vm"
  
     rg_name = module.rg.rg_name
-    location = module.rg.location  
+    location = module.rg.rg_location  
 
     subnet_id = module.vnet.subnet_id
     
