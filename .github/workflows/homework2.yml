@@ -1,0 +1,23 @@
+name: homework2
+
+on: 
+  push:
+    branches: ["main"]
+  workflow_dispatch: 
+
+jobs:
+  checkout-test:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout repo 
+          uses: actions/checkout@v4
+
+        - name: 
+          run: | 
+            if [ -f "README.md"]; then 
+              echo "README exists"
+            else
+              echo "README missing" 
+              exit 1 
+            fi
+        
