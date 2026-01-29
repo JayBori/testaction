@@ -1,0 +1,33 @@
+name: Step6 Artifact
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create file
+        run: | 
+          echo "build result $(data)" > output.txt
+          ls -al 
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: output.txr
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+
+      - name: Read file
+        run: |
+          ls -al 
+          cat output.txt
