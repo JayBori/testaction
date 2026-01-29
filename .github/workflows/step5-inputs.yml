@@ -1,0 +1,16 @@
+name: Step5 Inputs
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment: 
+        description: 'Select environment'
+        required: true
+        default: dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show env:
+        run: echo "Deploying to ${{ inputs.environment}}"
