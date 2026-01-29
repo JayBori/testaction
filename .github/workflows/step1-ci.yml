@@ -5,8 +5,10 @@ on:
     branches: ["main"]
 
 jobs:
-  hello:
+  homework:
     runs-on: ubuntu-latest
     steps: 
-      - name: Say Hello
-        run: echo "Hello GitHub ACtions!"
+      - name: MyName
+        run: echo "My Name is jay"      
+      - name: Today
+        run: echo "Today is CI Practice"
