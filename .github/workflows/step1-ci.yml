@@ -7,4 +7,6 @@ on:
 jobs:
   hello:
     runs-on: ubuntu-latest
-    run: eho "Hello GitHub ACtions!"
+    steps: 
+      - name: Say Hello
+        run: eho "Hello GitHub ACtions!"
