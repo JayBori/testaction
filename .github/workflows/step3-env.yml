@@ -11,7 +11,7 @@ jobs:
   show-env:
     runs-on: ubuntu-latest
     steps:
-      - name: Show env:
+      - name: Show env
         run: | 
           echo "Stage is $STAGE"
           echo "App is $APP_NAME"
