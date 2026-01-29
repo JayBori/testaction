@@ -1,0 +1,20 @@
+name: homework5
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment: 
+        description: 'input environment'
+        required: true
+        default: dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: dev
+        if: inputs.environment == 'dev'
+        run: echo "Deploying to DEV"
+      - name: prod
+        if: inputs.environment == 'prod'
+        run: echo "Deploying to PROD"
