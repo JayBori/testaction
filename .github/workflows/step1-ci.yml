@@ -1,0 +1,10 @@
+name: Step1 CI
+
+on: 
+  push:
+    branches: ["main"]
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    run: eho "Hello GitHub ACtions!"
