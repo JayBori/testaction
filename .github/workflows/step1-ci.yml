@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Say Hello
-        run: eho "Hello GitHub ACtions!"
+        run: echo "Hello GitHub ACtions!"
