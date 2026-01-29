@@ -1,0 +1,10 @@
+rg_name = "sgjo-gittest-rg"
+location = "koreacentral"
+vnet_name = "test-vnet"
+vnet_addressspace = ["10.0.0.0/16"]
+snet_name = "test-snet"
+snet_address = ["10.0.0.0/24"]
+vm_name = "test-vm"
+vm_sku = "Standard_B1s"
+vm_adminuser = "rootadmin"
+vm_adminpassword = "eogksalsrnr1!"
