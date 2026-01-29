@@ -13,4 +13,4 @@ jobs:
       - name: output
         run: |
           echo "Runnig in $ENV environment"
-          echo "API_KEY is ${{ secrets.API_KEY}}
+          echo "API_KEY is ${{ secrets.API_KEY}}"
