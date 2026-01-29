@@ -1,0 +1,19 @@
+name: Step4 If
+
+on: 
+  workflow_dispatch: 
+
+env:
+  ENV: dev
+
+jobs:
+  test-if:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dev Step 
+        if : env.ENV == 'dev'
+        run: echo "This is DEV enviromenet"
+
+      - name: Prod step 
+        if: env.ENV == 'prod'
+        run: echo "This is PROD environment" 
