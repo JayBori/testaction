@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Dev step
         if: env.ENV == 'dev'
-        run: 
+        run: |
           echo "Running DEV tasks" 
 
       - name: Prod step
         if: env.ENV == 'prod'
-        run: 
+        run: |
           echo "Running PROD tasks" 
           
