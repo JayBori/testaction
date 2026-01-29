@@ -12,7 +12,7 @@ jobs:
         - name: Checkout repo 
           uses: actions/checkout@v4
 
-        - name: 
+        - name: READMECheck
           run: | 
             if [ -f "README.md" ]; then 
               echo "README exists"
