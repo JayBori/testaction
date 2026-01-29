@@ -9,10 +9,8 @@ env:
 jobs:
   homework: 
     runs-on: ubuntu-latest
-      steps: 
-        - name: output
-          run: |
-            echo "Runnig in $ENV environment"
-            echo "API_KEY is ${{ secrets.API_KEY}}"
-          
-  
+    steps: 
+      - name: output
+        run: |
+          echo "Runnig in $ENV environment"
+          echo "API_KEY is ${{ secrets.API_KEY}}
