@@ -1,0 +1,17 @@
+name: Step3 Env
+
+on: 
+  workflow_dispatch: 
+
+env:
+  STAGE: dev
+  APP_NAME: gha-study
+
+jobs:
+  show-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show env:
+        run: | 
+          echo "Stage is $STAGE"
+          echo "App is $APP_NAME"
