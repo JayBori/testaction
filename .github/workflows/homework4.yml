@@ -1,0 +1,22 @@
+name: homework4
+
+on: 
+  workflow_dispatch: 
+
+env:
+  ENV: prod
+
+jobs:
+  homework:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dev step
+        if: env.ENV == 'dev'
+        run: 
+          echo "Running DEV tasks" 
+
+      - name: Prod step
+        if: env.ENV == 'prod'
+        run: 
+          echo "Running PROD tasks" 
+          
