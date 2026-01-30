@@ -52,5 +52,5 @@ jobs:
         run: |
           cd "${{ github.workspace }}/${{ inputs.workpath }}"
           terraform init
-          "${{inputs.workaction}}"
+          ${{inputs.workaction}}
         
