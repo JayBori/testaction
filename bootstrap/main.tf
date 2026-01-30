@@ -16,6 +16,6 @@ module "storage" {
 module "blob" {
   source = "./modules/terraform-azure-blob"
 
-  storage_account_name = module.storage.storage_name
+  storage_account_name = module.storage.id
   blob_container_name = var.blob_container_name
 }
