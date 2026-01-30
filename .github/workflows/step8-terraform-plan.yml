@@ -7,10 +7,10 @@ on:
         type: choice
         options:
           - /bootstrap
-          - /infra/terraform
+          - /infra/terraform/root
         description: "work path"
         required: true
-        default: "/infra/terraform"
+        default: "/infra/terraform/root"
       workaction: 
         type: choice
         options:
