@@ -45,7 +45,7 @@ jobs:
           ARM_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
           ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
         run: |
-          cd ${{inputs.workpath}}
+          cd "${{ github.workspace }}/${{ inputs.workpath }}"
           terraform init
 
       - name: Terraform plan
@@ -55,7 +55,7 @@ jobs:
           ARM_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
           ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
         run: |
-          cd ${{inputs.workpath}}
+          cd "${{ github.workspace }}/${{ inputs.workpath }}"
           terraform plan 
 
         
