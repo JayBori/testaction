@@ -2,6 +2,11 @@ name: Step8 Terraform Plan
 
 on: 
   workflow_dispatch: 
+    inputs:
+      workpath: 
+        description: "work path"
+        required: true
+        default: "/infra/terraform"
 
 permissions: 
   id-token: write
@@ -35,7 +40,9 @@ jobs:
           ARM_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
           ARM_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
           ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
-        run: terraform init
+        run: |
+          cd /${{input.workpath}}
+          terraform init
 
       - name: Terraform plan
         env: 
@@ -43,6 +50,8 @@ jobs:
           ARM_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
           ARM_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
           ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
-        run: terraform plan 
+        run: |
+          cd /${{input.workpath}}
+          terraform plan 
 
         
