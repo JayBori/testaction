@@ -11,13 +11,21 @@ on:
         description: "work path"
         required: true
         default: "/infra/terraform"
+      workaction: 
+        type: choice
+        options:
+          - terraform plan
+          - terraform apply -auto-approve
+        description: "Work Action"
+        required: true
+        default: "terraform plan"
 
 permissions: 
   id-token: write
   contents: read
 
 jobs:
-  tf-plan:
+  tf:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,7 +43,7 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      - name: Terraform Init
+      - name: Terraform 
         env: 
           ARM_USE_OIDC: "true"
           ARM_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
@@ -44,15 +52,5 @@ jobs:
         run: |
           cd "${{ github.workspace }}/${{ inputs.workpath }}"
           terraform init
-
-      - name: Terraform plan
-        env: 
-          ARM_USE_OIDC: "true"
-          ARM_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
-          ARM_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
-          ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
-        run: |
-          cd "${{ github.workspace }}/${{ inputs.workpath }}"
-          terraform plan 
-
+          "${{inputs.workaction}}"
         
