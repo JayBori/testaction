@@ -51,6 +51,6 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
         run: |
           cd "${{ github.workspace }}/${{ inputs.workpath }}"
-          "terraform init"
+          terraform init
           "${{inputs.workaction}}"
         
