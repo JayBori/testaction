@@ -1,0 +1,84 @@
+name: TF Apply (Prod)
+
+on: 
+  workflow_dispatch:
+    inputs:
+      workpath:
+        type: choice
+        description: "Select target directory"
+        options:
+          - bootstrap
+          - infra/terraform/root
+        required: true
+        default: infra/terraform/root
+      action: 
+        type: choice
+        description: "plan or apply"
+        options: [plan, apply]
+        required: true
+        default: plan
+
+permissions: 
+  id-token: write
+  contents: read
+
+concurrency: 
+  group: tf-prod-${{inputs.workpath}}
+  cancel-in-progress: false
+
+jobs:
+  deploy: 
+    runs-on: ubuntu-latest
+    environment: prod
+
+    defaults:
+      run:
+        working-directory: ${{inputs.workpath}}
+
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      - name: Terraform Init
+        env: 
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        run: |
+          set -euo pipefail
+          terraform init -input=false
+
+      - name: Terraform Plan (Saved)
+        if: inputs.action == 'plan'
+        run: |
+          set -euo pipefail
+          terraform plan -input=false -out=tfplan
+
+      - name: Upload tfplan artifact
+        if: inputs.action == 'plan'
+        uses: actions/upload-artifact@v4
+        with: 
+          name: tfplan-${{ inputs.workpath}}-${{github.run_id}}
+          path: ${{ inputs.workpath}}/tfplan
+
+      - name: Terraform Apply (From Saved Plan)
+        if: inputs.action == 'apply'  &&  github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          if [! -f "tfplan"]; then
+            echo "tfplan not found. run plan first (action=plan) in the same workpath"
+            exit 1
+          fi
+          terraform apply -input=false -auto-approve tfplan
+
+
+
+
