@@ -85,7 +85,7 @@ jobs:
         if: inputs.action == 'apply'  &&  github.ref == 'refs/heads/main'
         run: |
           set -euo pipefail
-          if [! -f "tfplan"]; then
+          if [ ! -f "tfplan" ]; then
             echo "tfplan not found. run plan first (action=plan) in the same workpath"
             exit 1
           fi
