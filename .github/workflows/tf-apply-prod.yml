@@ -58,7 +58,7 @@ jobs:
           set -euo pipefail
           terraform init -input=false
 
-      - name: Terraform Plan (Saved)
+      - name: Terraform Plan
         env: 
           ARM_USE_OIDC: "true"
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -67,37 +67,10 @@ jobs:
         if: inputs.action == 'plan'
         run: |
           set -euo pipefail
-          terraform plan -input=false -out=tfplan
-
-      - name: Upload tfplan artifact
-        env: 
-          ARM_USE_OIDC: "true"
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        if: inputs.action == 'plan'
-        uses: actions/upload-artifact@v4
-        with: 
-          name: tfplan-${{ inputs.workpath}}
-          path: ${{ inputs.workpath}}/tfplan
-
-      - name: Download tfplan artifact
-        if: inputs.action == 'apply'
-        uses: actions/download-artifact@v4
-        with:
-          name: tfplan-${{ inputs.workpath }}
-          path: ${{ inputs.workpath }}
+          terraform plan 
 
       - name: Terraform Apply (From Saved Plan)
-        if: inputs.action == 'apply'  &&  github.ref == 'refs/heads/main'
+        if: inputs.action == 'apply'
         run: |
           set -euo pipefail
-          if [ ! -f "tfplan" ]; then
-            echo "tfplan not found. run plan first (action=plan) in the same workpath"
-            exit 1
-          fi
-          terraform apply -input=false -auto-approve tfplan
-
-
-
-
+          terraform apply -auto-approve
