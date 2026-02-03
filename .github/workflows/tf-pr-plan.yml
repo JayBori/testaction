@@ -25,7 +25,7 @@ jobs:
       matrix: 
         workpath:
           - bootstrap
-           /infra/terraform/root
+          - /infra/terraform/root
 
     defaults:
       run:
