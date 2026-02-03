@@ -5,7 +5,7 @@ on:
     branches: ["main"]
     paths: 
       - "bootstrap/**"
-      - "inta/**"
+      - "infra/**"
       - ".github/workflows/tf-pr-plan.yml"
 
 permissions: 
