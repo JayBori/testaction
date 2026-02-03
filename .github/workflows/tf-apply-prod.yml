@@ -78,8 +78,15 @@ jobs:
         if: inputs.action == 'plan'
         uses: actions/upload-artifact@v4
         with: 
-          name: tfplan-${{ inputs.workpath}}-${{github.run_id}}
+          name: tfplan-${{ inputs.workpath}}
           path: ${{ inputs.workpath}}/tfplan
+
+      - name: Download tfplan artifact
+        if: inputs.action == 'apply'
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan-${{ inputs.workpath }}
+          path: ${{ inputs.workpath }}
 
       - name: Terraform Apply (From Saved Plan)
         if: inputs.action == 'apply'  &&  github.ref == 'refs/heads/main'
