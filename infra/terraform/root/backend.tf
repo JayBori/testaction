@@ -1,3 +1,4 @@
+/*
 terraform {
   backend "azurerm" {
     resource_group_name  = "sgjo-test-backend-rg"
@@ -6,3 +7,4 @@ terraform {
     key                  = "infra.tfstate"
   }
 }
+*/
