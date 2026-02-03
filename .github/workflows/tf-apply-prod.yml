@@ -36,6 +36,8 @@ jobs:
         working-directory: ${{inputs.workpath}}
 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
