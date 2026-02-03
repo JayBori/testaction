@@ -25,7 +25,7 @@ jobs:
       matrix: 
         workpath:
           - bootstrap
-          - /infra/terraform/root
+          - infra/terraform/root
 
     defaults:
       run:
@@ -55,11 +55,21 @@ jobs:
           terraform init -input=false
 
       - name: Terraform Validate
+        env: 
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}   
         run: | 
           set -euo pipefail
           terraform validate
 
       - name: Terraform Plan
+        env: 
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}   
         run: |
           set -euo pipefail
           terraform plan -input=false
